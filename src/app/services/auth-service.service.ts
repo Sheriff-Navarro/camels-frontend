@@ -9,6 +9,7 @@ export class AuthServiceService {
     private httpThang: Http
   ) { }
 
+
   // an argument for each "req.body" in the API route
   signup(theFullName, theEmail, thePassword) {
       return this.httpThang
