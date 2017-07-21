@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 
 import { AuthServiceService } from '../services/auth-service.service';
+import { CamelServiceService } from '../services/camel-service.service';
 
 @Component({
   selector: 'app-camel-list',
@@ -14,8 +15,12 @@ export class CamelListComponent implements OnInit {
 
   logoutError: string;
 
+  camelArray: any[] = [];
+  camelListError: string;
+
   constructor(
     private authThang: AuthServiceService,
+    private camelThang: CamelServiceService,
     private routerThang: Router
   ) { }
 
@@ -23,6 +28,7 @@ export class CamelListComponent implements OnInit {
     this.authThang.checklogin()
       .then((userFromApi) => {
           this.currentUser = userFromApi;
+          this.getThemCamels();
       })
       .catch(() => {
           this.routerThang.navigate(['/']);
@@ -38,5 +44,17 @@ export class CamelListComponent implements OnInit {
           this.logoutError = 'Log out went to 💩';
       });
   } // close logMeOutPls()
+
+  getThemCamels() {
+    this.camelThang.allCamels()
+      .subscribe(
+        (allTheCamels) => {
+            this.camelArray = allTheCamels;
+        },
+        () => {
+            this.camelListError = 'Sorry everybody. No camels today. 😱';
+        }
+      );
+  } // close getThemCamels()
 
 }
