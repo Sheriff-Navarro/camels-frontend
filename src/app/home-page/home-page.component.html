@@ -2,6 +2,12 @@
 
 <p> NeoPets but with camels. </p>
 
+<h3> Sign Up </h3>
+
+<p *ngIf="errorMessage" class="error">
+  {{ errorMessage }}
+</p>
+
 <form (ngSubmit)="doSignUp()">
   <label for="full-name-input"> Full Name </label>
   <input  id="full-name-input" type="text" placeholder="Blanche Bourbon"
@@ -19,4 +25,25 @@
   <br>
 
   <button> Sign Up </button>
+</form>
+
+
+<h3> Log In </h3>
+
+<p *ngIf="loginErrorMessage" class="error">
+  {{ loginErrorMessage }}
+</p>
+
+<form (ngSubmit)="doLogin()">
+  <label for="login-email-input"> Email </label>
+  <input  id="login-email-input" type="email" placeholder="hi@example.com"
+      [(ngModel)]="loginEmail" name="loginEmail">
+  <br>
+
+  <label for="login-pass-input"> Password </label>
+  <input  id="login-pass-input" type="password" placeholder="*****"
+      [(ngModel)]="loginPassword" name="loginPassword">
+  <br>
+
+  <button> Log In </button>
 </form>

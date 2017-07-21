@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
 
 import { AuthServiceService } from '../services/auth-service.service';
 
@@ -13,8 +14,14 @@ export class HomePageComponent implements OnInit {
   emailValue: string;
   passwordValue: string;
 
+  loginEmail: string;
+  loginPassword: string;
+
+  errorMessage: string;
+
   constructor(
-    private authThang: AuthServiceService
+    private authThang: AuthServiceService,
+    private routerThang: Router
   ) { }
 
   ngOnInit() {
@@ -23,13 +30,25 @@ export class HomePageComponent implements OnInit {
   doSignUp() {
     this.authThang.signup(this.fullNameValue, this.emailValue, this.passwordValue)
       .then((resultFromApi) => {
-          alert('Sign up worked! ' + resultFromApi._id);
-          console.log(resultFromApi);
+          // clear form
+          this.fullNameValue = "";
+          this.emailValue = "";
+          this.passwordValue = "";
+
+          // clear error message
+          this.errorMessage = "";
+
+          // redirect to /camels
+          this.routerThang.navigate(['/camels']);
       })
       .catch((err) => {
-          alert('Error 😤');
-          console.log(err);
+          const parsedError = err.json();
+          this.errorMessage = parsedError.message + ' 😤';
       });
+  } // close doSignUp()
+
+  doLogin() {
+    alert('LOGIN SUBMITTED');
   }
 
 }
