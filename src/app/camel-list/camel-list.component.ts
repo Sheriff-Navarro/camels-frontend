@@ -18,6 +18,14 @@ export class CamelListComponent implements OnInit {
   camelArray: any[] = [];
   camelListError: string;
 
+  isShowingForm: boolean = false;
+
+  camelName: string;
+  camelColor: string;
+  camelHumps: number;
+
+  saveError: string;
+
   constructor(
     private authThang: AuthServiceService,
     private camelThang: CamelServiceService,
@@ -56,5 +64,24 @@ export class CamelListComponent implements OnInit {
         }
       );
   } // close getThemCamels()
+
+  showCamelForm() {
+    this.isShowingForm = true;
+  } // close showCamelForm()
+
+  saveNewCamel() {
+    this.camelThang.newCamel(this.camelName, this.camelColor, this.camelHumps)
+      .subscribe(
+        (newCamelFromApi) => {
+            this.camelArray.push(newCamelFromApi);
+            this.isShowingForm = false;
+            this.saveError = "";
+        },
+
+        (err) => {
+            this.saveError = 'Don\t be a dumb 🐫';
+        }
+      );
+  } // saveNewCamel()
 
 }

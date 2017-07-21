@@ -13,6 +13,37 @@
   {{ camelListError }}
 </p>
 
+<button *ngIf="!isShowingForm" (click)="showCamelForm()">
+  Add Camel
+</button>
+
+<div *ngIf="isShowingForm">
+  <h3> Add a New Camel </h3>
+
+  <p *ngIf="saveError" class="error">
+    {{ saveError }}
+  </p>
+
+  <form (ngSubmit)="saveNewCamel()">
+    <label for="camel-name-input"> Camel Name </label>
+    <input  id="camel-name-input" type="text" placeholder="Joe the Camel"
+        [(ngModel)]="camelName" name="camelName">
+    <br>
+
+    <label for="camel-color-input"> Camel Color </label>
+    <input  id="camel-color-input" type="color" placeholder="#424242"
+        [(ngModel)]="camelColor" name="camelColor">
+    <br>
+
+    <label for="camel-humps-input"> Camel Humps </label>
+    <input  id="camel-humps-input" type="number" placeholder="2"
+        [(ngModel)]="camelHumps" name="camelHumps">
+    <br>
+
+    <button> Save Camel </button>
+  </form>
+</div>
+
 <ul>
   <li *ngFor="let oneCamel of camelArray">
     <h3> {{ oneCamel.name }} </h3>
