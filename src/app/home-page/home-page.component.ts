@@ -9,6 +9,7 @@ import { AuthServiceService } from '../services/auth-service.service';
   styleUrls: ['./home-page.component.css']
 })
 export class HomePageComponent implements OnInit {
+  isLoggedOut: boolean = false;
 
   fullNameValue: string;
   emailValue: string;
@@ -35,7 +36,9 @@ export class HomePageComponent implements OnInit {
       })
 
       // Even if you don't do anything on error, catch to avoid a console error.
-      .catch((err) => {});
+      .catch((err) => {
+          this.isLoggedOut = true;
+      });
   }
 
   doSignUp() {
