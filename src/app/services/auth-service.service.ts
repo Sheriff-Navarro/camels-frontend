@@ -78,7 +78,7 @@ export class AuthServiceService {
   } // close logout()
 
 
-  checklogin () {
+  checklogin() {
       return this.httpThang
         .get(
           'http://localhost:3000/api/checklogin',

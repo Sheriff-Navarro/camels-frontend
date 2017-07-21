@@ -14,10 +14,13 @@ export class HomePageComponent implements OnInit {
   emailValue: string;
   passwordValue: string;
 
+  errorMessage: string;
+
   loginEmail: string;
   loginPassword: string;
 
-  errorMessage: string;
+  loginErrorMessage: string;
+
 
   constructor(
     private authThang: AuthServiceService,
@@ -25,6 +28,14 @@ export class HomePageComponent implements OnInit {
   ) { }
 
   ngOnInit() {
+    this.authThang.checklogin()
+      // If success, we are logged in.
+      .then((resultFromApi) => {
+          this.routerThang.navigate(['/camels']);
+      })
+
+      // Even if you don't do anything on error, catch to avoid a console error.
+      .catch((err) => {});
   }
 
   doSignUp() {
@@ -48,7 +59,22 @@ export class HomePageComponent implements OnInit {
   } // close doSignUp()
 
   doLogin() {
-    alert('LOGIN SUBMITTED');
-  }
+    this.authThang.login(this.loginEmail, this.loginPassword)
+      .then((resultFromApi) => {
+          // clear the form
+          this.loginEmail = "";
+          this.loginPassword = "";
+
+          // clear the error message
+          this.loginErrorMessage = "";
+
+          // redirect to /camels
+          this.routerThang.navigate(['/camels']);
+      })
+      .catch((err) => {
+          const parsedError = err.json();
+          this.loginErrorMessage = parsedError.message + ' 😤';
+      });
+  } // close doLogin()
 
 }
