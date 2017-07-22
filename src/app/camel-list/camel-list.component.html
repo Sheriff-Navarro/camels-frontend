@@ -31,7 +31,7 @@
     <br>
 
     <label for="camel-color-input"> Camel Color </label>
-    <input  id="camel-color-input" type="color" placeholder="#424242"
+    <input  id="camel-color-input" type="color"
         [(ngModel)]="camelColor" name="camelColor">
     <br>
 
@@ -50,9 +50,9 @@
 
     <div [ngSwitch]="oneCamel.humps"
         [ngStyle]="{ 'background-color': oneCamel.color }">
-      <img *ngSwitchCase="0" src="/assets/horse.svg">
-      <img *ngSwitchCase="1" src="/assets/one-hump.svg">
-      <img *ngSwitchCase="2" src="/assets/two-humps.svg">
+      <img *ngSwitchCase="0" src="/assets/images/horse.svg">
+      <img *ngSwitchCase="1" src="/assets/images/one-hump.svg">
+      <img *ngSwitchCase="2" src="/assets/images/two-humps.svg">
     </div>
 
     <p>

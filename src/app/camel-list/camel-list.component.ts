@@ -21,7 +21,7 @@ export class CamelListComponent implements OnInit {
   isShowingForm: boolean = false;
 
   camelName: string;
-  camelColor: string;
+  camelColor: string = "#ffffff";
   camelHumps: number;
 
   saveError: string;
@@ -75,6 +75,9 @@ export class CamelListComponent implements OnInit {
         (newCamelFromApi) => {
             this.camelArray.push(newCamelFromApi);
             this.isShowingForm = false;
+            this.camelName = "";
+            this.camelColor = "#ffffff";
+            this.camelHumps = undefined;
             this.saveError = "";
         },
 

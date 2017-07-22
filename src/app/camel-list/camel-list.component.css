@@ -5,3 +5,22 @@
   display: inline-block;
   color: crimson;
 }
+
+ul {
+  padding-left: 0;
+  list-style: none;
+  overflow: auto;
+}
+
+li {
+  float: left;
+}
+
+div {
+  width: 200px;
+  height: 250px;
+}
+
+img {
+  line-height: 250px;
+}
