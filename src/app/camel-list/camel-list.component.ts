@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
+import { FileUploader } from 'ng2-file-upload';
 
 import { AuthServiceService } from '../services/auth-service.service';
 import { CamelServiceService } from '../services/camel-service.service';
@@ -25,6 +26,10 @@ export class CamelListComponent implements OnInit {
   camelHumps: number;
 
   saveError: string;
+
+  myCoolUploader = new FileUploader({
+    url: 'http://localhost:3000/api/camels'
+  });
 
   constructor(
     private authThang: AuthServiceService,
@@ -70,21 +75,30 @@ export class CamelListComponent implements OnInit {
   } // close showCamelForm()
 
   saveNewCamel() {
-    this.camelThang.newCamel(this.camelName, this.camelColor, this.camelHumps)
-      .subscribe(
-        (newCamelFromApi) => {
-            this.camelArray.push(newCamelFromApi);
-            this.isShowingForm = false;
-            this.camelName = "";
-            this.camelColor = "#ffffff";
-            this.camelHumps = undefined;
-            this.saveError = "";
-        },
+    this.myCoolUploader.onBuildItemForm = (item, form) => {
+        form.append('camelName', this.camelName);
+        form.append('camelColor', this.camelColor);
+        form.append('camelHumps', this.camelHumps);
+    };
 
-        (err) => {
-            this.saveError = 'Don\t be a dumb 🐫';
-        }
-      );
+    this.myCoolUploader.onSuccessItem = (item, response) => {
+        console.log(item);
+        const newCamelFromApi = JSON.parse(response);
+        this.camelArray.push(newCamelFromApi);
+        this.isShowingForm = false;
+        this.camelName = "";
+        this.camelColor = "#ffffff";
+        this.camelHumps = undefined;
+        this.saveError = "";
+    };
+
+    this.myCoolUploader.onErrorItem = (item, response) => {
+        console.log(item, response);
+        this.saveError = 'Don\t be a dumb 🐫';
+    };
+
+    // this is the function that initiates the AJAX request
+    this.myCoolUploader.uploadAll();
   } // saveNewCamel()
 
 }

@@ -40,6 +40,11 @@
         [(ngModel)]="camelHumps" name="camelHumps">
     <br>
 
+    <label for="camel-picture-input"> Camel Picture (optional)</label>
+    <input  id="camel-picture-input" type="file" name="camelPicture"
+        ng2FileSelect [uploader]="myCoolUploader">
+    <br>
+
     <button> Save Camel </button>
   </form>
 </div>
@@ -48,7 +53,10 @@
   <li *ngFor="let oneCamel of camelArray">
     <h3> {{ oneCamel.name }} </h3>
 
-    <div [ngSwitch]="oneCamel.humps"
+    <img *ngIf="oneCamel.picture"
+        [src]="'http://localhost:3000' + oneCamel.picture">
+
+    <div *ngIf="!oneCamel.picture" [ngSwitch]="oneCamel.humps"
         [ngStyle]="{ 'background-color': oneCamel.color }">
       <img *ngSwitchCase="0" src="/assets/images/horse.svg">
       <img *ngSwitchCase="1" src="/assets/images/one-hump.svg">
