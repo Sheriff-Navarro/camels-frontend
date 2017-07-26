@@ -29,7 +29,7 @@ export class CamelListComponent implements OnInit {
   saveError: string;
 
   myCoolUploader = new FileUploader({
-    url: 'http://localhost:3000/api/camels',
+    url: environment.apiBase + '/api/camels',
     itemAlias: 'camelPicture'
   });
 
