@@ -2,6 +2,8 @@ import { Injectable } from '@angular/core';
 import { Http } from '@angular/http';
 import 'rxjs/add/operator/map';
 
+import { environment } from '../../environments/environment';
+
 @Injectable()
 export class CamelServiceService {
 
@@ -13,7 +15,7 @@ export class CamelServiceService {
   newCamel(theName, theColor, theHumps) {
       return this.httpThang
         .post(
-          'http://localhost:3000/api/camels',
+          environment.apiBase + '/api/camels',
 
           // Form body information to send to the back end (req.body)
           {
@@ -34,7 +36,7 @@ export class CamelServiceService {
   allCamels() {
       return this.httpThang
         .get(
-          'http://localhost:3000/api/camels',
+          environment.apiBase + '/api/camels',
 
           // Send the cookies across domains
           { withCredentials: true }
