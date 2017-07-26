@@ -53,14 +53,15 @@
   <li *ngFor="let oneCamel of camelArray">
     <h3> {{ oneCamel.name }} </h3>
 
-    <img *ngIf="oneCamel.picture"
-        [src]="'http://localhost:3000' + oneCamel.picture">
+    <div class="picture-wrap" [ngStyle]="{ 'background-color': oneCamel.color }">
+      <img *ngIf="oneCamel.picture"
+          [src]="'http://localhost:3000' + oneCamel.picture">
 
-    <div *ngIf="!oneCamel.picture" [ngSwitch]="oneCamel.humps"
-        [ngStyle]="{ 'background-color': oneCamel.color }">
-      <img *ngSwitchCase="0" src="/assets/images/horse.svg">
-      <img *ngSwitchCase="1" src="/assets/images/one-hump.svg">
-      <img *ngSwitchCase="2" src="/assets/images/two-humps.svg">
+      <div *ngIf="!oneCamel.picture" [ngSwitch]="oneCamel.humps">
+        <img *ngSwitchCase="0" src="/assets/images/horse.svg">
+        <img *ngSwitchCase="1" src="/assets/images/one-hump.svg">
+        <img *ngSwitchCase="2" src="/assets/images/two-humps.svg">
+      </div>
     </div>
 
     <p>

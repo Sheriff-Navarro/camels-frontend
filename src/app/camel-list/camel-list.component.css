@@ -16,11 +16,11 @@ li {
   float: left;
 }
 
-div {
+.picture-wrap {
   width: 200px;
   height: 250px;
 }
 
 img {
-  line-height: 250px;
+  max-width: 100%;
 }

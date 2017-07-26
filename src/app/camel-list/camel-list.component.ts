@@ -28,7 +28,8 @@ export class CamelListComponent implements OnInit {
   saveError: string;
 
   myCoolUploader = new FileUploader({
-    url: 'http://localhost:3000/api/camels'
+    url: 'http://localhost:3000/api/camels',
+    itemAlias: 'camelPicture'
   });
 
   constructor(
@@ -75,6 +76,35 @@ export class CamelListComponent implements OnInit {
   } // close showCamelForm()
 
   saveNewCamel() {
+    // if no picture, regular AJAX upload
+    if (this.myCoolUploader.getNotUploadedItems().length === 0) {
+      this.saveCamelNoPicture();
+    }
+
+    // else, upload pictures with uploader
+    else {
+      this.saveCamelWithPicture();
+    }
+  } // close saveNewCamel()
+
+  private saveCamelNoPicture() {
+    this.camelThang.newCamel(this.camelName, this.camelColor, this.camelHumps)
+      .subscribe(
+        (newCamelFromApi) => {
+            this.camelArray.push(newCamelFromApi);
+            this.isShowingForm = false;
+            this.camelName = "";
+            this.camelColor = "#ffffff";
+            this.camelHumps = undefined;
+            this.saveError = "";
+        },
+        (err) => {
+            this.saveError = 'Don\t be a dumb 🐫';
+        }
+      );
+  } // close saveCamelNoPicture
+
+  private saveCamelWithPicture() {
     this.myCoolUploader.onBuildItemForm = (item, form) => {
         form.append('camelName', this.camelName);
         form.append('camelColor', this.camelColor);
@@ -99,6 +129,5 @@ export class CamelListComponent implements OnInit {
 
     // this is the function that initiates the AJAX request
     this.myCoolUploader.uploadAll();
-  } // saveNewCamel()
-
+  } // close saveCamelWithPicture
 }
