@@ -55,7 +55,7 @@
 
     <div class="picture-wrap" [ngStyle]="{ 'background-color': oneCamel.color }">
       <img *ngIf="oneCamel.picture"
-          [src]="'http://localhost:3000' + oneCamel.picture">
+          [src]="baseUrl + oneCamel.picture">
 
       <div *ngIf="!oneCamel.picture" [ngSwitch]="oneCamel.humps">
         <img *ngSwitchCase="0" src="/assets/images/horse.svg">

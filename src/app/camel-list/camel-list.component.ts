@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { FileUploader } from 'ng2-file-upload';
 
+import { environment } from '../../environments/environment';
 import { AuthServiceService } from '../services/auth-service.service';
 import { CamelServiceService } from '../services/camel-service.service';
 
@@ -31,6 +32,8 @@ export class CamelListComponent implements OnInit {
     url: 'http://localhost:3000/api/camels',
     itemAlias: 'camelPicture'
   });
+
+  baseUrl = environment.apiBase;
 
   constructor(
     private authThang: AuthServiceService,
