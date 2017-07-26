@@ -2,7 +2,7 @@ import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 import { HttpModule } from '@angular/http';
 import { FormsModule } from '@angular/forms';
-import { FileSelectDirective } from 'ng2-file-upload';
+import { FileUploadModule } from 'ng2-file-upload';
 
 import { AuthServiceService } from './services/auth-service.service';
 import { CamelServiceService } from './services/camel-service.service';
@@ -15,14 +15,14 @@ import { CamelListComponent } from './camel-list/camel-list.component';
   declarations: [
     AppComponent,
     HomePageComponent,
-    CamelListComponent,
-    FileSelectDirective
+    CamelListComponent
   ],
   imports: [
     BrowserModule,
     AppRoutingModule,
     FormsModule,
-    HttpModule
+    HttpModule,
+    FileUploadModule
   ],
   providers: [
     AuthServiceService,
