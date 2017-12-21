@@ -27,17 +27,17 @@
   <form (ngSubmit)="saveNewCamel()">
     <label for="camel-name-input"> Camel Name </label>
     <input  id="camel-name-input" type="text" placeholder="Joe the Camel"
-        [(ngModel)]="camelName" name="camelName">
+        [(ngModel)]="camelInfo.camelName" name="camelName">
     <br>
 
     <label for="camel-color-input"> Camel Color </label>
     <input  id="camel-color-input" type="color"
-        [(ngModel)]="camelColor" name="camelColor">
+        [(ngModel)]="camelInfo.camelColor" name="camelColor">
     <br>
 
     <label for="camel-humps-input"> Camel Humps </label>
     <input  id="camel-humps-input" type="number" placeholder="2"
-        [(ngModel)]="camelHumps" name="camelHumps">
+        [(ngModel)]="camelInfo.camelHumps" name="camelHumps">
     <br>
 
     <label for="camel-picture-input"> Camel Picture (optional)</label>
@@ -66,11 +66,11 @@
 
     <p>
       Owned by:
-      <b *ngIf="oneCamel.user._id !== currentUser._id">
-        {{ oneCamel.user.fullName }}
+      <b *ngIf="oneCamel.user?._id !== currentUser._id">
+        {{ oneCamel.user?.fullName }}
       </b>
 
-      <b *ngIf="oneCamel.user._id === currentUser._id">
+      <b *ngIf="oneCamel.user?._id === currentUser._id">
         YOU
       </b>
     </p>

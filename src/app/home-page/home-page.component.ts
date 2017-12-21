@@ -11,14 +11,18 @@ import { AuthServiceService } from '../services/auth-service.service';
 export class HomePageComponent implements OnInit {
   isLoggedOut: boolean = false;
 
-  fullNameValue: string;
-  emailValue: string;
-  passwordValue: string;
+  signUpInfo = {
+    fullName: '',
+    email: '',
+    password: ''
+  };
 
   errorMessage: string;
 
-  loginEmail: string;
-  loginPassword: string;
+  loginInfo = {
+    email: '',
+    password: ''
+  };
 
   loginErrorMessage: string;
 
@@ -42,12 +46,14 @@ export class HomePageComponent implements OnInit {
   }
 
   doSignUp() {
-    this.authThang.signup(this.fullNameValue, this.emailValue, this.passwordValue)
+    this.authThang.signup(this.signUpInfo)
       .then((resultFromApi) => {
           // clear form
-          this.fullNameValue = "";
-          this.emailValue = "";
-          this.passwordValue = "";
+          this.signUpInfo = {
+            fullName: '',
+            email: '',
+            password: ''
+          };
 
           // clear error message
           this.errorMessage = "";
@@ -62,11 +68,13 @@ export class HomePageComponent implements OnInit {
   } // close doSignUp()
 
   doLogin() {
-    this.authThang.login(this.loginEmail, this.loginPassword)
+    this.authThang.login(this.loginInfo)
       .then((resultFromApi) => {
           // clear the form
-          this.loginEmail = "";
-          this.loginPassword = "";
+          this.loginInfo = {
+            email: '',
+            password: ''
+          };
 
           // clear the error message
           this.loginErrorMessage = "";

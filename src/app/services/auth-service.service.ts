@@ -13,16 +13,16 @@ export class AuthServiceService {
 
 
   // an argument for each "req.body" in the API route
-  signup(theFullName, theEmail, thePassword) {
+  signup(componentInfo) {
       return this.httpThang
         .post(
-          environment.apiBase + '/api/signup',
+          `${environment.apiBase}/api/signup`,
 
           // Form body information to send to the back end (req.body)
           {
-            signupFullName: theFullName,
-            signupEmail: theEmail,
-            signupPassword: thePassword
+            signupFullName: componentInfo.fullName,
+            signupEmail: componentInfo.email,
+            signupPassword: componentInfo.password
           },
 
           // Send the cookies across domains
@@ -37,15 +37,15 @@ export class AuthServiceService {
   } // close signup()
 
 
-  login(theEmail, thePassword) {
+  login(componentInfo) {
       return this.httpThang
         .post(
-          environment.apiBase + '/api/login',
+          `${environment.apiBase}/api/login`,
 
           // Form body information to send to the back end (req.body)
           {
-            blahEmail: theEmail,
-            blahPassword: thePassword
+            blahEmail: componentInfo.email,
+            blahPassword: componentInfo.password
           },
 
           // Send the cookies across domains
@@ -63,7 +63,7 @@ export class AuthServiceService {
   logout() {
       return this.httpThang
         .post(
-          environment.apiBase + '/api/logout',
+          `${environment.apiBase}/api/logout`,
 
           // Nothing to send to the back end (req.body)
           {},
@@ -83,7 +83,7 @@ export class AuthServiceService {
   checklogin() {
       return this.httpThang
         .get(
-          environment.apiBase + '/api/checklogin',
+          `${environment.apiBase}/api/checklogin`,
 
           // Send the cookies across domains
           { withCredentials: true }

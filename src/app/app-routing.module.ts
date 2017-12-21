@@ -3,6 +3,7 @@ import { Routes, RouterModule } from '@angular/router';
 
 import { HomePageComponent } from './home-page/home-page.component';
 import { CamelListComponent } from './camel-list/camel-list.component';
+import { NotFoundComponent } from './not-found/not-found.component';
 
 const routes: Routes = [
   {
@@ -12,6 +13,10 @@ const routes: Routes = [
   {
     path: 'camels',
     component: CamelListComponent
+  },
+  {
+    path: '**',
+    component: NotFoundComponent
   }
 ];
 

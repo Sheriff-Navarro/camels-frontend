@@ -22,9 +22,11 @@ export class CamelListComponent implements OnInit {
 
   isShowingForm: boolean = false;
 
-  camelName: string;
-  camelColor: string = "#ffffff";
-  camelHumps: number;
+  camelInfo = {
+    camelName: "",
+    camelColor: "#ffffff",
+    camelHumps: undefined
+  };
 
   saveError: string;
 
@@ -91,27 +93,29 @@ export class CamelListComponent implements OnInit {
   } // close saveNewCamel()
 
   private saveCamelNoPicture() {
-    this.camelThang.newCamel(this.camelName, this.camelColor, this.camelHumps)
+    this.camelThang.newCamel(this.camelInfo)
       .subscribe(
         (newCamelFromApi) => {
             this.camelArray.push(newCamelFromApi);
             this.isShowingForm = false;
-            this.camelName = "";
-            this.camelColor = "#ffffff";
-            this.camelHumps = undefined;
+            this.camelInfo = {
+              camelName: "",
+              camelColor: "#ffffff",
+              camelHumps: undefined
+            };
             this.saveError = "";
         },
         (err) => {
-            this.saveError = 'Don\t be a dumb 🐫';
+            this.saveError = 'Don\'t be a dumb 🐫';
         }
       );
   } // close saveCamelNoPicture
 
   private saveCamelWithPicture() {
     this.myCoolUploader.onBuildItemForm = (item, form) => {
-        form.append('camelName', this.camelName);
-        form.append('camelColor', this.camelColor);
-        form.append('camelHumps', this.camelHumps);
+        form.append('camelName', this.camelInfo.camelName);
+        form.append('camelColor', this.camelInfo.camelColor);
+        form.append('camelHumps', this.camelInfo.camelHumps);
     };
 
     this.myCoolUploader.onSuccessItem = (item, response) => {
@@ -119,15 +123,17 @@ export class CamelListComponent implements OnInit {
         const newCamelFromApi = JSON.parse(response);
         this.camelArray.push(newCamelFromApi);
         this.isShowingForm = false;
-        this.camelName = "";
-        this.camelColor = "#ffffff";
-        this.camelHumps = undefined;
+        this.camelInfo = {
+          camelName: "",
+          camelColor: "#ffffff",
+          camelHumps: undefined
+        };
         this.saveError = "";
     };
 
     this.myCoolUploader.onErrorItem = (item, response) => {
         console.log(item, response);
-        this.saveError = 'Don\t be a dumb 🐫';
+        this.saveError = 'Don\'t be a dumb 🐫';
     };
 
     // this is the function that initiates the AJAX request
